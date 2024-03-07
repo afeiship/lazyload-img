@@ -1,6 +1,6 @@
 {
   "name": "@jswork/lazyload-img",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "description": "Lazyload image.",
   "main": "dist/index.cjs.js",
