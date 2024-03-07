@@ -1,9 +1,11 @@
 interface LazyloadImgOptions {
   selector: string;
+  interval: number;
 }
 
 const defaults: LazyloadImgOptions = {
   selector: 'img[data-src].lazy',
+  interval: 300,
 };
 
 class LazyloadImg {
@@ -21,7 +23,6 @@ class LazyloadImg {
   }
 
   lazyload = () => {
-    console.log('lazyload');
     if (this.lazyloadThrottleTimeout) {
       clearTimeout(this.lazyloadThrottleTimeout);
     }
@@ -44,7 +45,7 @@ class LazyloadImg {
         window.removeEventListener('resize', this.lazyload);
         window.removeEventListener('orientationChange', this.lazyload);
       }
-    }, 20);
+    }, this.options.interval);
   };
 
   attachEvents() {
