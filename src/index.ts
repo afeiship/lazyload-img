@@ -45,6 +45,7 @@ class LazyloadImg {
   };
 
   attachEvents() {
+    document.addEventListener('DOMContentLoaded', this.lazyload);
     document.addEventListener('scroll', this.lazyload);
     window.addEventListener('resize', this.lazyload);
     window.addEventListener('orientationChange', this.lazyload);
