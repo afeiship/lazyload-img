@@ -3,6 +3,8 @@ interface LazyloadImgOptions {
   interval: number;
 }
 
+type LazyElement = HTMLImageElement & { dataset: { src: string } };
+
 const defaults: LazyloadImgOptions = {
   selector: 'img[data-src].lazy',
   interval: 300,
@@ -27,13 +29,13 @@ class LazyloadImg {
       clearTimeout(this.lazyloadThrottleTimeout);
     }
 
-    const lazyElements = document.querySelectorAll(this.options.selector) as NodeListOf<HTMLImageElement>;
+    const lazyElements = document.querySelectorAll(this.options.selector) as NodeListOf<LazyElement>;
 
     this.lazyloadThrottleTimeout = setTimeout(() => {
-      var scrollTop = window.pageYOffset;
+      var scrollTop = window.scrollY || window.pageYOffset;
       lazyElements.forEach(function (img) {
-        const offsetTop = img.getBoundingClientRect().top;
-        if (offsetTop < window.innerHeight + scrollTop) {
+        const { top } = img.getBoundingClientRect();
+        if (top < window.innerHeight + scrollTop) {
           img.src = img.dataset.src!;
           img.classList.remove('lazy');
         }
