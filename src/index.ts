@@ -32,7 +32,7 @@ class LazyloadImg {
     const lazyElements = document.querySelectorAll(this.options.selector) as NodeListOf<LazyElement>;
 
     this.lazyloadThrottleTimeout = setTimeout(() => {
-      var scrollTop = window.scrollY || window.pageYOffset;
+      const scrollTop = window.scrollY || window.pageYOffset;
       lazyElements.forEach(function (img) {
         const { top } = img.getBoundingClientRect();
         if (top < window.innerHeight + scrollTop) {
