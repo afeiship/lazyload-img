@@ -21,6 +21,7 @@ class LazyloadImg {
   }
 
   lazyload = () => {
+    console.log('lazyload');
     if (this.lazyloadThrottleTimeout) {
       clearTimeout(this.lazyloadThrottleTimeout);
     }
@@ -30,13 +31,15 @@ class LazyloadImg {
     this.lazyloadThrottleTimeout = setTimeout(() => {
       var scrollTop = window.pageYOffset;
       lazyElements.forEach(function (img) {
-        if (img.offsetTop < window.innerHeight + scrollTop) {
+        const offsetTop = img.getBoundingClientRect().top;
+        if (offsetTop < window.innerHeight + scrollTop) {
           img.src = img.dataset.src!;
           img.classList.remove('lazy');
         }
       });
 
       if (lazyElements.length == 0) {
+        document.removeEventListener('DOMContentLoaded', this.lazyload);
         document.removeEventListener('scroll', this.lazyload);
         window.removeEventListener('resize', this.lazyload);
         window.removeEventListener('orientationChange', this.lazyload);
