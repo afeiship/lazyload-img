@@ -25,7 +25,7 @@ LazyloadImg.init({
 ```
 
 ```css
-img.lazy {
+img[data-src].lazy {
   background-color: #f5f5f5;
   opacity: 0;
   transition: opacity 0.6s;
